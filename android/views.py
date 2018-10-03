@@ -1,6 +1,6 @@
 import string
 
-from android.models import Useraccount, GoodsInfo, Accounts
+from android.models import Useraccount, GoodsInfo, Accounts, ElectProduct
 from django.http import HttpResponse
 from decimal import Decimal
 from django.contrib.auth.decorators import login_required
@@ -169,13 +169,13 @@ def cookiestest(request):
 
 @login_required
 def getcell(request):
+    qb = ElectProduct.objects.filter(gtype='2').order_by('-gclick')[:6]
+    qblist = [{'net': str(Decimal(i.Coin).quantize(Decimal('0.0'))),
+               'pid': i.id,
+               'price': str(Decimal(i.price).quantize(Decimal('0.0')))} for i in qb]
+
     resp = {'error': 200, 'msg': '成功获取Q币信息',
-            'list': [
-                {'net': 12, 'pid': '1', 'price': 10},
-                {'net': 13, 'pid': '2', 'price': 20},
-                {'net': 14, 'pid': '3', 'price': 40},
-                {'net': 15, 'pid': '4', 'price': 50},
-            ]
+            'list': qblist
             }
     return HttpResponse(json.dumps(resp), content_type="application/json")
 

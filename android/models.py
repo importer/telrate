@@ -72,3 +72,19 @@ class Accounts(models.Model):
     class Meta:
         verbose_name = '账户信息'
         verbose_name_plural = '账户信息'
+
+
+class ElectProduct(models.Model):
+    title = models.CharField('商品名称', max_length=20)
+    pic = models.ImageField('商品图片', upload_to='df_goods', null=True, blank=True)  # 商品图片
+    price = models.DecimalField('价格', max_digits=7, decimal_places=2)
+    Coin = models.DecimalField('价值', max_digits=7, decimal_places=2)
+    amount = models.IntegerField('数量')  # 商品库存
+    gclick = models.IntegerField('点击量')  # 商品点击量,便于排人气
+    state = models.BooleanField('状态', default=True)
+    remark = models.CharField('备注', max_length=200, null=True, blank=True)  # 备注
+    gtype = models.ForeignKey(TypeInfo, verbose_name='所属分类', on_delete=models.CASCADE)  # 商品所属类型
+
+    class Meta:
+        verbose_name = '电子产品'
+        verbose_name_plural = '电子产品'

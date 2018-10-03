@@ -1,5 +1,5 @@
 from django.contrib import admin
-from android.models import Person, Useraccount, GoodsInfo, TypeInfo, Accounts
+from android.models import Person, Useraccount, GoodsInfo, TypeInfo, Accounts, ElectProduct
 
 
 # Register your models here.
@@ -29,3 +29,10 @@ class TypeInfoAdmin(admin.ModelAdmin):
 @admin.register(Accounts)
 class TypeInfoAdmin(admin.ModelAdmin):
     list_display = ('use_id', 'amount', 'Coin')
+
+
+@admin.register(ElectProduct)
+class TypeInfoAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'price', 'amount', 'Coin', 'state')
+    list_filter = ('state',)
+    search_fields = ('title',)
